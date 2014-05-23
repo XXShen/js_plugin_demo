@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/validationEngine.jquery.css">
+    <script src="js/jquery-1.8.2.min.js"></script> 
+	<script src="js/jquery.validationEngine-zh_CN.js"></script> 
+	<script src="js/jquery.validationEngine.js"></script>
+</head>
+
+<body>
+	<div class="">
+		我要打10个！！！
+	</div>
+    <form class="form-horizontal fill-up validatable">
+
+        <div class="padded">
+
+            <div class="form-group col-lg-7">
+                <label class="control-label col-lg-2">姓名</label>
+                <div class="col-lg-10">
+                    <input type="text" class="" data-prompt-position="topLeft">
+                </div>
+            </div>
+
+            <div class="form-group col-lg-7">
+                <label class="control-label col-lg-2">电话</label>
+                <div class="col-lg-10">
+                    <input type="text" class="" data-prompt-position="topLeft">
+                </div>
+            </div>
+
+            <div class="form-group col-lg-7">
+                <label class="control-label col-lg-2">日期</label>
+                <div class="col-lg-10">
+                    <input type="text" class="" data-prompt-position="topLeft">
+                </div>
+            </div>
+
+            <div class="form-group col-lg-7">
+                <label class="control-label col-lg-2">时间段</label>
+                <div class="col-lg-10">
+                    <input type="text" id="scheduled-time" class="">
+                </div>
+            </div>
+
+            <div class="form-group col-lg-7">
+                <label class="control-label col-lg-2">备注</label>
+                <div class="col-lg-10">
+                    <input type="text" id="remark" class="">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-actions col-lg-7">
+            <button type="submit" class="btn btn-blue" id="setInformation">Save changes</button>
+            <button type="button" class="btn btn-default">Cancel</button>
+        </div>
+            <script>
+    $('#setInformation').click(function  () {
+    	// body...
+    	$("#remark").validationEngine();
+    })
+    	
+    </script>
+    </form>
+
+</body>
+
+</html>

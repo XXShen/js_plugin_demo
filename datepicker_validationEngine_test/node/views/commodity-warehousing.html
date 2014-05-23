@@ -1,0 +1,260 @@
+<form class="form-horizontal fill-up validatable">
+
+    <div class="padded">
+        <div class="row">
+            <div class="col-lg-3">
+                <label class="control-label col-lg-4">单据编码:</label>
+                <div class="col-lg-8">
+                    <input type="text" class="validate[required]" data-prompt-position="topLeft">
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <label class="control-label col-lg-4">商品名称:</label>
+                <div class="col-lg-8">
+                    <input type="text" class="validate[required]" data-prompt-position="topLeft">
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <label class="control-label col-lg-4">审批状态:</label>
+                <div class="col-lg-8">
+                    <input type="text" class="validate[required]" data-prompt-position="topLeft">
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <label class="control-label col-lg-4">制单日期:</label>
+                <div class="col-lg-8">
+                    <input type="text" id="text" class="validate[required,minSize[4]]">
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="form-actions col-md-offset-8 btn-space-left">
+            <button type="button" class="btn btn-danger pull-right"><i class='icon-remove'></i>&nbsp;删除选中</button>
+
+            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-default pull-right"><i class='icon-plus'></i>&nbsp;新增</button>
+            <button type="submit" class="btn btn-default pull-right"><i class='icon-search'></i>&nbsp;查询</button>
+        </div>
+    </div>
+    <table class="table table-hover table-bordered mtop-3 table-striped">
+        <tr class="odd">
+            <th></th>
+            <th>单据编码</th>
+            <th>入库商品图片</th>
+            <th>商品名称</th>
+            <th>单据类型</th>
+            <th>库存仓库</th>
+            <th>制单日期</th>
+            <th>是否审核</th>
+            <th>经手人</th>
+            <th>查看明细</th>
+        </tr>
+        <tr class="even">
+            <td>
+                <input type="checkbox">
+            </td>
+            <td>000120140208130239</td>
+            <td></td>
+            <td>雪花啤酒</td>
+            <td>盘点单</td>
+            <td>1号仓库</td>
+            <td>2014年02月08日13时34分51秒</td>
+            <td>已审核</td>
+            <td>admin</td>
+            <td>
+                <button class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"><i class="icon-search"></i>
+                </button>
+            </td>
+        </tr>
+        <tr class="odd">
+            <td>
+                <input type="checkbox">
+            </td>
+            <td>000120140208130239</td>
+            <td></td>
+            <td>雪花啤酒</td>
+            <td>盘点单</td>
+            <td>1号仓库</td>
+            <td>2014年02月08日13时34分51秒</td>
+            <td>已审核</td>
+            <td>admin</td>
+            <td>
+                <button class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"><i class="icon-search"></i>
+                </button>
+            </td>
+        </tr>
+    </table>
+
+    <div class="dataTables_paginate paging_full_numbers" id="DataTables_Table_0_paginate"><a tabindex="0" class="first paginate_button paginate_button_disabled" id="DataTables_Table_0_first">First</a><a tabindex="0" class="previous paginate_button paginate_button_disabled" id="DataTables_Table_0_previous">Previous</a>
+        <span><a tabindex="0" class="paginate_active">1</a><a tabindex="0" class="paginate_button">2</a><a tabindex="0" class="paginate_button">3</a><a tabindex="0" class="paginate_button">4</a><a tabindex="0" class="paginate_button">5</a>
+        </span><a tabindex="0" class="next paginate_button" id="DataTables_Table_0_next">Next</a><a tabindex="0" class="last paginate_button" id="DataTables_Table_0_last">Last</a>
+    </div>
+
+    <style type="text/css">
+    .btn-space-left .btn {
+        margin-left:10px;
+    }
+    .mtop-3 {
+        margin-top:30px;
+    }
+    .mtop {
+        margin-top: 10px;
+    }
+    </style>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width:1200px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">当前位置：新增入库单</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <button type="button" class="btn btn-default " data-toggle="modal" data-target="#myModal2">选择入库商品</button>
+                        <button type="submit" class="btn btn-default btn-space-left">审核并保存</button>
+                        <button type="submit" class="btn btn-default btn-space-left">打印</button>
+                        <button type="submit" class="btn btn-default btn-space-left">退出</button>
+                    </div>
+                    <div class="row mtop-3">
+                        <div class="col-lg-6">
+                            <label class="control-label col-lg-3">单据编号:</label>
+                            <div class="col-lg-9">
+                                <input type="text" id="text" class="validate[required]">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="control-label col-lg-3">仓库选择:</label>
+                            <div class="col-lg-9">
+                                <input type="text" id="text" class="validate[required]">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mtop">
+                            <label class="control-label col-lg-3">经手人:</label>
+                            <div class="col-lg-9">
+                                <input type="text" id="text" class="validate[required]">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mtop">
+                            <label class="control-label col-lg-3">制单日期:</label>
+                            <div class="col-lg-9">
+                                <input type="text" id="text" class="validate[required]">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mtop">
+                            <label class="control-label col-lg-3">审核日期:</label>
+                            <div class="col-lg-9">
+                                <input type="text" id="text" class="validate[required]">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mtop">
+                            <label class="control-label col-lg-3">备注说明:</label>
+                            <div class="col-lg-9">
+                                <input type="text" id="text" class="validate[required]">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+
+                        <table class="table table-hover table-bordered mtop-3 table-striped">
+                            <tr class="odd">
+                                <th>入库商品图片</th>
+                                <th>单据编码</th>
+                                <th>商品名称</th>
+                                <th>库存单位</th>
+                                <th>数量</th>
+                                <th>入库单位</th>
+                                <th>数量</th>
+                                <th>单价</th>
+                                <th>小计金额</th>
+                                <th>操作</th>
+                            </tr>
+                            <tr class="even">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+        <div class="modal-dialog" style="width:1200px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel2">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <label class="control-label col-lg-3">菜品名称:</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="validate[required]" data-prompt-position="topLeft">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions col-md-offset-8 btn-space-left">
+                        <button type="button" class="btn btn-default pull-right">查询</button>
+                        <button type="button" class="btn btn-default pull-right">应用</button>
+
+                    </div>
+                    <table class="table table-hover table-bordered mtop-3 table-striped">
+                        <tbody>
+                            <tr class="odd">
+                                <th></th>
+                                <th>菜单项图片</th>
+                                <th>菜单项名称</th>
+                                <th>金额</th>
+                                <th>描述</th>
+                                <th>备注</th>
+
+                            </tr>
+                            <tr class="even">
+                                <td>
+                                    <input type="checkbox">
+                                </td>
+                                <td></td>
+                                <td>五琼浆</td>
+                                <td>1200.00/瓶</td>
+                                <td></td>
+                                <td></td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="row">
+                      <div class="dataTables_paginate paging_full_numbers" id="DataTables_Table_0_paginate"><a tabindex="0" class="first paginate_button paginate_button_disabled" id="DataTables_Table_0_first">First</a><a tabindex="0" class="previous paginate_button paginate_button_disabled" id="DataTables_Table_0_previous">Previous</a>
+                          <span><a tabindex="0" class="paginate_active">1</a><a tabindex="0" class="paginate_button">2</a><a tabindex="0" class="paginate_button">3</a><a tabindex="0" class="paginate_button">4</a><a tabindex="0" class="paginate_button">5</a>
+                          </span><a tabindex="0" class="next paginate_button" id="DataTables_Table_0_next">Next</a><a tabindex="0" class="last paginate_button" id="DataTables_Table_0_last">Last</a>
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+
+</form>

@@ -1,0 +1,30 @@
+{
+  "browser" : true
+  , "devel" : true // 允许在代码中出现 alert,console。 todo 以后要干掉
+  , "jquery" : true
+
+  , "boss" : true  // 不允许在条件语句中的一些弱智情况 如if(a=10)  
+  , "curly" : true // 不允许单行的条件语句或循环语句不加大括号
+  , "camelcase" : true
+  , "eqeqeq" : true // 只能用全等或全不等（===,!==）
+  , "expr" : true // 需要函数调用的时候，却个表达式
+  , "freeze" : true //不允许重写内置对象(Date,Array等)的原型方法
+  , "funcscope" : true
+  , "indent" :4
+  , "laxcomma" : true //第一行的允许逗号
+  , "latedef" : false // 不允许先使用再定义
+  , "maxparams" : 5 // 方法最多5个参数
+  , "maxlen" : 80 // 一行最多80个字符
+  , "noempty" : true
+  , "undef" : true 
+  , "unused" : "vars" //只检查没使用的变量
+
+  , "globals": { // 注册全局的变量
+    "describe" : false 
+    , "it" : false
+    , "beforeEach" : false
+    , "afterEach" : false
+    , "chai" : false
+    , "sinon" : false
+  }
+}

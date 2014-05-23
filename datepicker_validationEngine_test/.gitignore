@@ -1,0 +1,20 @@
+# Logs
+logs
+*.log
+
+# 启动文件
+*.bat
+
+# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+
+# Dependency directory
+# Deployed apps should consider commenting this line out:
+# see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
+node_modules
+bower_components
+
+# java项目
+java
+

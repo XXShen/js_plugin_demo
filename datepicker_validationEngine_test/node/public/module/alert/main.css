@@ -1,0 +1,14 @@
+.alert-box{
+	border: 1px solid #ddd;
+	margin: 10px;
+}
+.alert-box .box-header{
+	padding: 0 10px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 22px;
+	background: #cde;
+}
+.alert-box .box-content{
+	padding: 10px;
+}

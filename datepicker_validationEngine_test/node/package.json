@@ -1,0 +1,24 @@
+{
+  "name": "site-demo",
+  "version": "0.0.0",
+  "description": "site use express",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "main": "node app"
+  },
+  "author": "joel",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "ejs": "^1.0.0",
+    "express": "^3.5.1",
+    "express-partials": "^0.2.0",
+    "log4js": "^0.6.12"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "load-grunt-tasks": "~0.4.0",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-bowercopy": "~0.8.0"
+  }
+}
