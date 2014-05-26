@@ -13,6 +13,7 @@ module.exports = function(grunt) {
                     '**/*.html',
                     '**/*.css',
                     '**/*.js',
+                    'vendor/**/*',
                     '!Gruntfile.js',
                     '!build/**',
                     '!node_modules/**',
@@ -29,5 +30,6 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.registerTask('pre', ['clean','copy']);
     grunt.registerTask('default', ['clean','copy','gh-pages']);
 };
