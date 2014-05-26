@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>单选下拉框的么demo</title>
+    <link rel="stylesheet" href="../vendor/application.css">
+    <link rel="stylesheet" href="../vendor/prettify/prettify.css">
+    <script src="../vendor/application.js"></script>
+    <script src="../vendor/prettify/prettify.js"></script>
+    <style>
+    pre{
+        width: 800px;
+    }
+    </style>
+</head>
+
+<body>
+    <h2>最基本用法</h2>
+    <pre class="prettyprint linenums lang-js">
+        $("select").uniform();</pre>
+    <h2>禁用下拉框</h2>
+    <pre class="prettyprint linenums lang-js">
+        $("select").attr('disabled', 'disabled').uniform();</pre>
+    <h2>添加新选项</h2>
+    <pre class="prettyprint linenums lang-js">
+        $("select").append($('&lt;option&gt;')
+                    .text('sth')
+                    .uniform();</pre>
+    <h2>完整demo</h2>
+    <label for="">你喜欢什么水果:</label>
+    <div class="sel-wrap" style="width:280px;">
+        <!-- 父级元素来控制下拉框的宽度 -->
+        <select name="" id="sel-fruit">
+            <option value="apple">苹果</option>
+            <option value="lizhi">荔枝</option>
+            <option value="pineapple">菠萝</option>
+        </select>
+    </div>
+    <br>
+    <label for="">禁用下拉框</label>
+    <input type="checkbox" id="disable-sel">
+    <br>
+    <label for="">添加新的水果</label>
+    <input type="text" id="new-fruit-input">
+    <button id="add-fruit-btn">添加</button>
+    <script>
+    $(document).ready(function() {
+        prettyPrint(); //让代码变漂亮~
+
+        var $sel = $('#sel-fruit');
+        $sel.uniform(); // 初始化下拉框
+
+        // 改变下拉框的状态
+        $('#disable-sel').click(function() {
+            if (this.checked) {
+                $sel.attr('disabled', 'disabled');
+            } else {
+                $sel.removeAttr('disabled');
+            }
+            $sel.uniform();
+        });
+
+        var $newFruitInput = $('#new-fruit-input');
+        $('#add-fruit-btn').click(function() {
+            var newFruit = $.trim($newFruitInput.val());
+
+            if (newFruit === '') {
+                alert('水果名不能为空');
+            } else {
+                var isExist = false;
+                var $existFruit = $sel.find('option:contains(' + newFruit + ')');
+                $existFruit.each(function() {
+                    var $this = $(this);
+                    if ($this.text().length === newFruit.length) {
+                        isExist = true;
+                        return false;
+                    }
+                });
+
+                if (isExist) {
+                    alert('该水果已存在，请不要重复添加');
+                } else {
+                    $sel.append($('<option>').text(newFruit)).uniform();
+                }
+            }
+        });
+    })
+    </script>
+</body>
+
+</html>
