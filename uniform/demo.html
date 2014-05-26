@@ -5,10 +5,29 @@
     <meta charset="UTF-8">
     <title>单选下拉框的么demo</title>
     <link rel="stylesheet" href="../vendor/application.css">
+    <link rel="stylesheet" href="../vendor/prettify/prettify.css">
     <script src="../vendor/application.js"></script>
+    <script src="../vendor/prettify/prettify.js"></script>
+    <style>
+    pre{
+        width: 800px;
+    }
+    </style>
 </head>
 
 <body>
+    <h2>最基本用法</h2>
+    <pre class="prettyprint linenums lang-js">
+        $("select").uniform();</pre>
+    <h2>禁用下拉框</h2>
+    <pre class="prettyprint linenums lang-js">
+        $("select").attr('disabled', 'disabled').uniform();</pre>
+    <h2>添加新选项</h2>
+    <pre class="prettyprint linenums lang-js">
+        $("select").append($('&lt;option&gt;')
+                    .text('sth')
+                    .uniform();</pre>
+    <h2>完整demo</h2>
     <label for="">你喜欢什么水果:</label>
     <div class="sel-wrap" style="width:280px;">
         <!-- 父级元素来控制下拉框的宽度 -->
@@ -27,6 +46,8 @@
     <button id="add-fruit-btn">添加</button>
     <script>
     $(document).ready(function() {
+        prettyPrint(); //让代码变漂亮~
+
         var $sel = $('#sel-fruit');
         $sel.uniform(); // 初始化下拉框
 
@@ -50,11 +71,11 @@
                 var isExist = false;
                 var $existFruit = $sel.find('option:contains(' + newFruit + ')');
                 $existFruit.each(function() {
-                	var $this = $(this);
-                	if($this.text().length === newFruit.length){
-                		isExist = true;
-                		return false;
-                	}
+                    var $this = $(this);
+                    if ($this.text().length === newFruit.length) {
+                        isExist = true;
+                        return false;
+                    }
                 });
 
                 if (isExist) {
