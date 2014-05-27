@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>单选下拉框demo</title>
+    <title>多选下拉框demo</title>
     <link rel="stylesheet" href="../vendor/application.css">
     <link rel="stylesheet" href="../vendor/prettify/prettify.css">
     <script src="../vendor/application.js"></script>
@@ -18,20 +18,21 @@
 <body>
     <h2>最基本用法</h2>
     <pre class="prettyprint linenums lang-js">
-        $("select").uniform();</pre>
+        $("select").select2();</pre>
+    <p>ps: select 元素上要加 multiple属性</p>
     <h2>禁用下拉框</h2>
     <pre class="prettyprint linenums lang-js">
-        $("select").attr('disabled', 'disabled').uniform();</pre>
+        $("select").select2('enable',false);</pre>
     <h2>添加新选项</h2>
     <pre class="prettyprint linenums lang-js">
         $("select").append($('&lt;option&gt;')
                     .text('sth')
-                    .uniform();</pre>
+                    .select2();</pre>
     <h2>完整demo</h2>
     <label for="">你喜欢什么水果:</label>
     <div class="sel-wrap" style="width:280px;">
         <!-- 父级元素来控制下拉框的宽度 -->
-        <select name="" id="sel-fruit">
+        <select name="" id="sel-fruit" multiple>
             <option value="apple">苹果</option>
             <option value="lizhi">荔枝</option>
             <option value="pineapple">菠萝</option>
@@ -49,16 +50,11 @@
         prettyPrint(); //让代码变漂亮~
 
         var $sel = $('#sel-fruit');
-        $sel.uniform(); // 初始化下拉框
+        $sel.select2(); // 初始化下拉框
 
         // 改变下拉框的状态
         $('#disable-sel').click(function() {
-            if (this.checked) {
-                $sel.attr('disabled', 'disabled');
-            } else {
-                $sel.removeAttr('disabled');
-            }
-            $sel.uniform();
+            $sel.select2('enable',!this.checked);
         });
 
         var $newFruitInput = $('#new-fruit-input');
@@ -81,7 +77,7 @@
                 if (isExist) {
                     alert('该水果已存在，请不要重复添加');
                 } else {
-                    $sel.append($('<option>').text(newFruit)).uniform();
+                    $sel.append($('<option>').text(newFruit)).select2();
                 }
             }
         });
