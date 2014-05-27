@@ -1,0 +1,40 @@
+#header {
+    color: #222;
+    font-family: Microsoft Yahei;
+    font-weight: lighter;
+    font-family: "Microsoft Yahei",Arial, "Helvetica Neue";
+}
+#forkOnGitHubWrap {
+     position: absolute;
+     z-index: 1031;
+     top: 42px;
+     right: -42px;
+     width: 200px;
+     padding: 1px 0;
+     background: #c00;
+     color: #eee;
+     -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+     -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+     -moz-transform: rotate(45deg);
+     -webkit-transform: rotate(45deg);
+     -o-transform: rotate(45deg);
+     -ms-transform: rotate(45deg);
+     transform: rotate(45deg);
+ }
+ #forkOnGitHubWrap a, #forkOnGitHubWrap a:visited, #forkOnGitHubWrap a:active, #forkOnGitHubWrap a:hover {
+     display: block;
+     padding: 1px 0;
+     height: 24px;
+     line-height: 24px;
+     color: inherit;
+     text-align: center;
+     text-decoration: none;
+     font-family:'Cabin Condensed', sans-serif;
+     font-size: 16px;
+     font-weight: 500;
+     border: 1px solid rgba(255, 255, 255, 0.3);
+     -moz-text-shadow: 0 0 10px rgba(0, 0, 0, 0.31);
+     -webkit-text-shadow: 0 0 10px rgba(0, 0, 0, 0.31);
+     text-shadow: 0 0 10px rgba(0, 0, 0, 0.31);
+ }
