@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>树形组件demo</title>
+    <link rel="stylesheet" href="../vendor/application.css">
+    <link rel="stylesheet" href="../vendor/prettify/prettify.css">
+    <script src="../vendor/application.js"></script>
+    <script src="../vendor/prettify/prettify.js"></script>
+    <link rel="stylesheet" href="../vendor/ztree/ztreeStyle.css">
+    <script src="../vendor/ztree/jquery.ztree.core-3.5.min.js"></script>
+    <style>
+    body {
+        padding: 20px;
+    }
+    pre {
+        width: 800px;
+    }
+    </style>
+</head>
+
+<body>
+    <h2>最基本用法</h2>
+    <p>html</p>
+    <pre class="prettyprint linenums">
+        &lt;ul id="demo" class="ztree"&gt;&lt;/ul&gt;</pre>
+    <p>js</p>
+    <pre class="prettyprint linenums lang-js">
+    var zTreeObj;
+   // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解） http://www.ztree.me/v3/api.php/
+   var setting = {};
+   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
+   // 数据结构的层级是通过children来表示的。如果是想用简单的数组形式来表示这种层级关系。可以通过设置来实现，具体见下面的demo
+   var zNodes = [
+        {
+            name:"test1",
+            open:true,
+            children:[
+                {name:"test1_1"},
+                {name:"test1_2"}
+            ]
+        },
+        {
+            name:"test2",
+            open:true,
+            children:[
+                {name:"test2_1"},
+                {name:"test2_2"}
+            ]
+        }
+   ];
+   $(document).ready(function(){
+      zTreeObj = $.fn.zTree.init($("#demo"), setting, zNodes);
+   });
+          </pre>
+
+    <h2>用数组来表示层级结构的demo</h2>
+
+    <ul id="treeDemo" class="ztree"></ul>
+    <script>
+    $(document).ready(function() {
+        prettyPrint(); //让代码变漂亮~
+
+        var setting = {
+            data: {
+                simpleData: {
+                    enable: true// 让数据格式支持数组
+                }
+            },
+            callback: {
+                onClick: onClickNode
+            }
+        };
+
+        var nodes = [{
+                "id": 0,
+                "pId": -1,
+                "name": "菜单图片",
+                "open": true
+            },
+
+            {
+                "id": 1,
+                "pId": 0,
+                "name": "酒水"
+            }, {
+                "id": 11,
+                "pId": 1,
+                "name": "白酒",
+                "requestUrl": 'hotel/baijiu/imgs'
+            },
+
+            {
+                "id": 2,
+                "pId": 0,
+                "name": "菜品"
+            }, {
+                "id": 21,
+                "pId": 2,
+                "name": "精品凉菜",
+                "requestUrl": 'hotel/liangcai/imgs'
+            }, {
+                "id": 21,
+                "pId": 2,
+                "name": "测试料理",
+                "requestUrl": 'hotel/liaoli/imgs'
+            }
+        ];
+
+        function onClickNode(event, treeId, treeNode, clickFlag) {
+            var nodeType = treeNode.isParent ? '父节点' : '子节点';
+            console.log('%s 被点击', nodeType);
+            if (!treeNode.isParent) {
+                console.log('发送请求:%s', treeNode.requestUrl);
+            }
+        }
+        var zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, nodes);
+    });
+    </script>
+</body>
+
+</html>
