@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>弹出框</title>
+
+    <link rel="stylesheet" href="../vendor/messenger/messenger.css">
+    <link rel="stylesheet" href="../vendor/application.css">
+    <link rel="stylesheet" href="../vendor/messenger/messenger-theme-future.css">
+    <script src="../vendor/application.js"></script>
+    <script src="../vendor/messenger/messenger.js"></script>
+    
+</head>
+
+<body>
+    <div class="row">
+        <input type="text" id="setInput" />
+        <button type="submit">弹出</button>
+    </div>
+    <div class="messenger_type">
+        <label ><input type="radio" name="change" id="errInput" />报错</label>
+        <label ><input type="radio" name="change" id="passInput" />通过</label>
+    </div>
+    
+    <style type="text/css">
+		.row span{ margin: 5px 0; }
+		.row span i{ background: #999; color: #fff;}
+    </style>
+    <script>
+    function setMessenger(text){
+    	Messenger().post({
+          message: text,//弹出框的内容
+          type: 'error',//弹出框的形式：通过（绿色）/报错（红色）
+          showCloseButton: true//是否带开关按钮
+        })
+
+        Messenger.options = {
+            extraClasses: 'messenger-fixed messenger-on-top',
+            theme: 'future',//弹出框风格            
+        }
+
+        Messenger().run();
+    }
+    $('button').click(function(){
+    	setMessenger( $('#setInput').val());
+    })
+
+    </script>
+
+</body>
+
+</html>
