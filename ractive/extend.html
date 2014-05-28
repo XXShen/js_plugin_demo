@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>继承/拓展Ractive</title>
+    <script src="../vendor/application.js"></script>
+	<script src="../vendor/ractive/ractive.js"></script>
+</head>
+<body>
+<div id='container'></div>
+<script id='template' type='text/ractive'>
+    <p>hello {{type}}： {{name}}</p>
+</script>
+  <script>
+    $(document).ready(function() {
+        var Fruit = Ractive.extend({
+            init: function(){//初始化函数
+                console.log('水果产生中');
+            },
+            data:{
+                type:'水果'
+            }
+        });
+
+        var lizhi = new Fruit({
+            el: '#container', //输出元素选择器
+            template: '#template', //模板选择器
+            data:{
+                name:'荔枝'
+            }
+        })
+
+
+
+
+    });
+    </script>
+</body>
+</html>
