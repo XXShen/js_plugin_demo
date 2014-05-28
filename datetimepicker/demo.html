@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../vendor/prettify/prettify.css">
     <script src="../vendor/prettify/prettify.js"></script>
     <style>
-    pre{
+    pre {
         width: 800px;
     }
     </style>
@@ -35,7 +35,7 @@
 
 
             </div>
-            
+
             <h1 style="clear:both; ">自定义</h1>
             <pre class="prettyprint linenums lang-js"> 
                 自定义日历框显示内容
@@ -81,7 +81,7 @@
         <script>
         ;
         (function($) {
-            $("#form_datetime2").datetimepicker();           
+            $("#form_datetime2").datetimepicker();
             $.fn.datetimepicker.dates['fr'] = {
                 days: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
                 daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
@@ -102,6 +102,9 @@
             pickerPosition: "bottom-left",
             language: 'fr'
         });
+        $(document).ready(function(argument) {
+            prettyPrint(); //让代码变漂亮~
+        })
         </script>
     </form>
     <style type="text/css">

@@ -23,7 +23,6 @@
     
     <h1>基本用法</h1>
     <pre class="prettyprint linenums lang-js">
-        
         Messenger().post({
             message: text, //弹出框的内容 可以是参数
             type: 'error', //弹出框的形式：成功提示框 绿色（'success'）/报错提示框 红色（error）/ 消息弹出框 蓝色（info）            
@@ -40,6 +39,7 @@
             showCloseButton: true//设置消息框关闭按钮
         }
     </pre>
+  
     <div class="row">
         <label for="setInput">不带关闭按钮 默认10S后自动消失</label>
         <input type="text" id="setInput" />
@@ -63,6 +63,9 @@
     }
     </style>
     <script>
+    $(document).ready(function (argument) {
+        prettyPrint(); //让代码变漂亮~
+    })
     function setMessenger(text) {
         var messageType;
         
@@ -92,6 +95,9 @@
     }
     $('button').click(function() {
         setMessenger($('#setInput').val());
+    })
+    $(document).ready(function (argument) {
+        prettyPrint(); //让代码变漂亮~
     })
     </script>
 
