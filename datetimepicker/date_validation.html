@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>date</title>
+    <link rel="stylesheet" href="../vendor/datetimepicker/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="../vendor/application.css">
+    <script src="../vendor/application.js"></script>  
+    
+</head>
+
+<body>
+    
+    <form class="form-horizontal fill-up validatable">
+
+        <div class="padded">
+
+           
+
+            <div class="form-group col-lg-7">
+                <label class="control-label col-lg-2">日期:</label>
+
+                <div class="col-lg-10">
+                    <input type="text" id="form_datetime" readonly="" value="" size="16">
+
+                </div>
+
+
+            </div>
+
+            
+
+        </div>
+
+        
+        <script>
+        ;
+        (function($) {
+            $.fn.datetimepicker.dates['fr'] = {
+                days: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+                daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+                daysMin: ["日", "一", "二", "三", "四", "五", "六", "日"],
+                months: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+                monthsShort: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+                today: "今天",
+                suffix: [],
+                meridiem: ["am", "pm"],
+                weekStart: 1,
+                
+            };
+        }(jQuery));
+        $("#form_datetime").datetimepicker({
+            format: "yyyy - MM - dd "+ '日' +" - hh:ii",
+            autoclose: true,
+            todayBtn: true,
+            pickerPosition: "bottom-left",
+            language: 'fr'
+        });
+        </script>
+    </form>
+    <style type="text/css">
+    .form-group input {
+        width: 200px;
+    }
+    </style>
+</body>
+
+</html>
