@@ -3,3 +3,5 @@
 
 插件demo见 http://xxshen.github.io/js_plugin_demo/    
 ps： Core admin是非免费的，18$，购买点[这里](https://wrapbootstrap.com/theme/core-admin-WB0135486)。
+
+[![Analytics](https://ga-beacon.appspot.com/UA-51368834-1/js_plugin_demo/readme)](https://github.com/igrigorik/ga-beacon)
