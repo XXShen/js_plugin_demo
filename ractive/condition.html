@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>流程控制</title>
+    <script src="../vendor/application.js"></script>
+	<script src="../vendor/ractive/ractive.js"></script>
+</head>
+<body>
+<div id='container'></div>
+<script id='template' type='text/ractive'>
+	今天是
+	{{#isSunny}}
+    	晴天
+	{{/isSunny}}
+	{{^isSunny}}
+    	雨天
+	{{/isSunny}}
+	<br/>
+	温度: {{temp}}℃<br/>
+	天气状态：{{weatherStaus(temp)}}<br/>
+
+	<button on-click='changeWeather'>改变天气</button>
+	<button on-click='changTemp:true'>升温</button>
+	<button on-click='changTemp:false'>降温</button>
+</script>
+  <script>
+    $(document).ready(function() {
+        var weather = new Ractive({
+            el: '#container', //输出元素选择器
+            template: '#template', //模板选择器
+            data: { //渲染数据
+                isSunny: true,
+                temp:20,// 温度
+                weatherStaus: function(temp){// if else 的 替换方式
+                	if(temp <= 10){
+                		return '天气寒冷，注意保暖';
+                	}else if(temp <= 20){
+                		return '天气好凉爽';
+                	}else if(temp <= 30){
+                		return '空气适宜';
+                	}else{
+                		return '热';
+                	}
+                }
+            }
+        });
+        weather.on('changeWeather', function(){
+        	weather.set('isSunny', !weather.get('isSunny'));
+        });
+        weather.on('changTemp', function(evt,addTemp){
+        	var tempDelta = 10;
+        	if(!addTemp){
+        		tempDelta = -tempDelta;
+        	}
+        	weather.set('temp', weather.get('temp') + tempDelta);
+        });
+    });
+    </script>
+</body>
+</html>

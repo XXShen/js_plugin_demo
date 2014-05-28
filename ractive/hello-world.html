@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>hello world</title>
+    <script src="../vendor/application.js"></script>
+	<script src="../vendor/ractive/ractive.js"></script>
+</head>
+<body>
+<div id='container'></div>
+<script id='template' type='text/ractive'>
+    <p>Hello, {{name}}!</p>
+</script>
+  <script>
+    $(document).ready(function() {
+        var greet = new Ractive({
+            el: '#container', //输出元素选择器
+            template: '#template', //模板选择器
+            data: { //渲染数据
+                name: 'world'
+            }
+        });
+    });
+    </script>
+</body>
+</html>
