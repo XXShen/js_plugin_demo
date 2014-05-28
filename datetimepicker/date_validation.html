@@ -6,18 +6,56 @@
     <title>date</title>
     <link rel="stylesheet" href="../vendor/datetimepicker/bootstrap-datetimepicker.css">
     <link rel="stylesheet" href="../vendor/application.css">
-    <script src="../vendor/application.js"></script>  
-    
+    <script src="../vendor/application.js"></script>
+
 </head>
 
 <body>
-    
+
     <form class="form-horizontal fill-up validatable">
 
         <div class="padded">
+            <h1>基本用法</h1>
+            <pre class="prettyprint linenums lang-js">        
+                $("#form_datetime2").datetimepicker();                   
+            </pre>
+            <div class="form-group col-lg-7" style="clear:both; ">
+                <label class="control-label col-lg-2">日期:</label>
 
-           
+                <div class="col-lg-10">
+                    <input type="text" id="form_datetime2" readonly="" value="" size="16">
 
+                </div>
+
+
+            </div>
+            
+            <h1 style="clear:both; ">自定义</h1>
+            <pre class="prettyprint linenums lang-js"> 
+                自定义日历框显示内容
+                (function($) {
+                    $.fn.datetimepicker.dates['fr'] = { //这个demo是改变了fr这个日历框 下面也要配置引用fr
+                        days: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+                        daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+                        daysMin: ["日", "一", "二", "三", "四", "五", "六", "日"],
+                        months: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+                        monthsShort: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+                        today: "今天",
+                        suffix: [],
+                        meridiem: ["am", "pm"],
+                        weekStart: 1,
+
+                    };
+                }(jQuery));   
+                自定义显示内容
+                $("#form_datetime").datetimepicker({
+                    format: "yyyy - MM - dd " + '日' + " - hh:ii",//选择日期时间后，在input中显示的内容配置
+                    autoclose: true,//空白处关闭
+                    todayBtn: true,//显示'今天'按钮 方便直接选择到今天
+                    pickerPosition: "bottom-left",//日历框出现位置
+                    language: 'fr'//引用哪个日历框展现形式 en为默认英文 目前没有官方中文 按照上面这个方式配置出中文
+                });               
+            </pre>
             <div class="form-group col-lg-7">
                 <label class="control-label col-lg-2">日期:</label>
 
@@ -29,14 +67,15 @@
 
             </div>
 
-            
+
 
         </div>
 
-        
+
         <script>
         ;
         (function($) {
+            $("#form_datetime2").datetimepicker();           
             $.fn.datetimepicker.dates['fr'] = {
                 days: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
                 daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
@@ -47,11 +86,11 @@
                 suffix: [],
                 meridiem: ["am", "pm"],
                 weekStart: 1,
-                
+
             };
         }(jQuery));
         $("#form_datetime").datetimepicker({
-            format: "yyyy - MM - dd "+ '日' +" - hh:ii",
+            format: "yyyy - MM - dd " + '日' + " - hh:ii",
             autoclose: true,
             todayBtn: true,
             pickerPosition: "bottom-left",

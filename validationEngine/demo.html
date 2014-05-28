@@ -7,13 +7,50 @@
     <link rel="stylesheet" href="../vendor/application.css">
     <link rel="stylesheet" href="../vendor/validationEngine/validationEngine.jquery.css">
     <script src="../vendor/application.js"></script>
-    <script src="../vendor/validationEngine/jquery.validationEngine-zh_CN.js"></script>    
+    <script src="../vendor/validationEngine/jquery.validationEngine-zh_CN.js"></script>
 </head>
 
 <body>
     <div class="">
         我要打10个！！！
     </div>
+    <h1>基本用法</h1>
+    <pre class="prettyprint linenums lang-js">
+        
+        $("#form_id").validationEngine({//id为form的id
+
+        });       
+        
+    </pre>
+    <h1>错误信息自定义</h1>
+    <pre class="prettyprint linenums lang-js">        
+             
+        'custom_error_messages': {
+
+                '#number': {
+                    'required': {
+                        'message': "id选择器自定义报错"
+                    }
+                }
+                // Custom Error Messages for Classes
+                ,
+                '.class_req': {
+                    'required': {
+                        'message': "类名自定义报错 必填（这是使用 class 选择器定义的，它的优先级要比规则的高）"
+                    }
+                }
+            }
+    </pre>
+    <h1>自定义验证方式</h1>
+    <pre class="prettyprint linenums lang-js">        
+        在jquery.validationEngine-zh_CN.js添加
+        for example
+        "phone": {//验证调用名            
+            "regex": /^([\+][0-9]{1,3}[ \.\-])?([\(]{1}[0-9]{2,6}[\)])?([0-9 \.\-\/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/,//正则匹配
+            "alertText": "* 无效的电话号码"//输出错误提示信息
+        },
+        在需要验证的input中 添加类名 validate[custom[phone]]
+    </pre>
     <form class="form-horizontal fill-up validatable" id="form_id">
 
         <div class="padded">
@@ -54,7 +91,7 @@
             <div class="form-group col-lg-7">
                 <label class="control-label col-lg-2">日期格式验证（YYYY-mm-dd）</label>
                 <div class="col-lg-10">
-                    <input value="201-12-01" class="validate[required,custom[date]] text-input" type="text" name="date" id="date" /> 
+                    <input value="201-12-01" class="validate[required,custom[date]] text-input" type="text" name="date" id="date" />
                 </div>
             </div>
             <div class="form-group col-lg-7">
@@ -80,47 +117,49 @@
             <div class="form-group col-lg-7">
                 <label class="control-label col-lg-2">id选择器自定义报错</label>
                 <div class="col-lg-10">
-                    <input   class="validate[required,min[1]]" type="text" name="reqplaceholder" id="number" />
+                    <input class="validate[required,min[1]]" type="text" name="reqplaceholder" id="number" />
                 </div>
             </div>
 
 
             <div class="form-group col-lg-7">
-                <label class="control-label col-lg-2">类名自定义报错 </label>
+                <label class="control-label col-lg-2">类名自定义报错</label>
                 <div class="col-lg-10">
-                    <input value=""  class="class_req text-input validate[required]" type="text" name="class_req"  />
+                    <input value="" class="class_req text-input validate[custom[phone]]" type="text" name="class_req" />
                 </div>
             </div>
 
-            
+
 
         </div>
 
         <div class="form-actions col-lg-7">
             <button type="submit" class="btn btn-blue">提交</button>
-           
+
         </div>
         <script>
+        
+
         $("#form_id").validationEngine({
             
             'custom_error_messages': {
-                    
-                    '#number': {
-                        'required': {
-                            'message': "id选择器自定义报错"
-                        }
-                    }
-                    // Custom Error Messages for Classes
-                    ,                    
-                    '.class_req': {
-                        'required': {
-                            'message': "类名自定义报错 必填（这是使用 class 选择器定义的，它的优先级要比规则的高）"
-                        }
+
+                '#number': {
+                    'required': {
+                        'message': "id选择器自定义报错"
                     }
                 }
+                // Custom Error Messages for Classes
+                ,
+                '.class_req': {
+                    'required': {
+                        'message': "类名自定义报错 必填（这是使用 class 选择器定义的，它的优先级要比规则的高）"
+                    }
+                }
+            }
+            
 
         });
-       
         </script>
     </form>
     <style type="text/css">
