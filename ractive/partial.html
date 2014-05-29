@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>partial</title>
+    <script src="../vendor/application.js"></script>
+	<script src="../vendor/ractive/ractive.js"></script>
+    <style>
+    body{
+        background: #ccc;
+    }
+    </style>
+</head>
+<body>
+<div id='container'></div>
+<script id='template' type='text/ractive'>
+    喜爱的水果
+    <ul>
+    {{#fruits}}
+        {{>fruit}}
+    {{/fruits}}
+    </ul>
+</script>
+
+<script>
+    $(document).ready(function() {
+        var greet = new Ractive({
+            el: '#container', //输出元素选择器
+            template: '#template', //模板选择器
+            partials:{
+                'fruit': '<li style="color:{{color}}">'
+                    + '{{name}}'
+                    + '</li>'
+            },
+            data: { //渲染数据
+                fruits:[
+                    {name:'荔枝',color:'red'},
+                    {name:'榴莲',color:'yellow'},
+                    {name:'香蕉',color:'yellow'}
+                ]
+            }
+        });
+    });
+</script>
+</body>
+</html>
