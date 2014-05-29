@@ -9,6 +9,15 @@
 <body>
 <div id='container'></div>
 <script id='template' type='text/ractive'>
+    <p>
+    {{#time > 18 && time < 24}}
+    晚上好
+    {{/time}}
+    {{#time > 0 && time <= 18}}
+    白天好
+    {{/time}}
+    </p>
+
 	今天是
 	{{#isSunny}}
     	晴天
@@ -30,6 +39,7 @@
             el: '#container', //输出元素选择器
             template: '#template', //模板选择器
             data: { //渲染数据
+                time : new Date().getHours(),
                 isSunny: true,
                 temp:20,// 温度
                 weatherStaus: function(temp){// if else 的 替换方式
