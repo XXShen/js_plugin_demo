@@ -20,6 +20,9 @@
         {{>fruit}}
     {{/fruits}}
     </ul>
+    <!-- {{>fruit}} -->
+    <li style="color:{{color}}">{{name}}</li>
+    <!-- {{/fruit}} -->
 </script>
 
 <script>
@@ -27,11 +30,6 @@
         var greet = new Ractive({
             el: '#container', //输出元素选择器
             template: '#template', //模板选择器
-            partials:{
-                'fruit': '<li style="color:{{color}}">'
-                    + '{{name}}'
-                    + '</li>'
-            },
             data: { //渲染数据
                 fruits:[
                     {name:'荔枝',color:'red'},
