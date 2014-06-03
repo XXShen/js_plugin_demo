@@ -12,6 +12,7 @@ ps： Core admin是非免费的，18$，购买点[这里](https://wrapbootstrap.
 * [日历组件](http://xxshen.github.io/js_plugin_demo/datetimepicker/demo.html)
 * [弹出框组件](http://xxshen.github.io/js_plugin_demo/spot/demo.html)
 * [ractive](http://xxshen.github.io/js_plugin_demo/ractive/demo.html) mvc框架
+* [jQuery-File-Upload](https://github.com/XXShen/js_plugin_demo/tree/master/fileUpload) 上传文件组件
 * [sock.io](https://github.com/XXShen/js_plugin_demo/tree/master/webSocket) 实时应用框架
 
 
