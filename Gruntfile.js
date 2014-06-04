@@ -17,6 +17,8 @@ module.exports = function(grunt) {
                     '!Gruntfile.js',
                     '!build/**',
                     '!node_modules/**',
+                    '!webSocket/**',
+                    '!fileUpload/**',
                     '!.*'
                 ],
                 'dest': 'build/'
