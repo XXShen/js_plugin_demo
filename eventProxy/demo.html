@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>eventProxy（异步流程管理） demo</title>
+    <link rel="stylesheet" href="../vendor/application.css">
+    <link rel="stylesheet" href="../vendor/prettify/prettify.css">
+    <script src="../vendor/application.js"></script>
+    <script src="../vendor/eventProxy/eventproxy.js"></script>
+
+</head>
+
+<body>
+    <h2>打开控制台（F12）看demo XD</h2>
+    <script>
+    $(document).ready(function() {
+        /*
+            基本使用
+            a,b 都做完后，执行一些事
+        */
+        (function(){
+            var ep = EventProxy.create('a', 'b', function (dataA, dataB) {
+                console.log('things all done~ data:%s,%s', dataA, dataB);
+                console.log('**********************\n\n');
+            });
+            doAysnThing('a',function(){
+                ep.emit('a', 'data a!');
+            });
+            doAysnThing('b',function(){
+                ep.emit('b', 'data b!');
+            });
+        })();
+
+
+        /*
+            错误处理
+        */
+        setTimeout(function(){
+            var ep = EventProxy.create('a', 'b', function (dataA, dataB) {
+                console.log('things all done~ data:%s,%s', dataA, dataB);
+            });
+            doAysnThing('a',function(err){
+                if(err){
+                    ep.emit('error', err);// 通知发生错误
+                }else{
+                    ep.emit('a', 'data a!');
+                }
+            }, true);// 抛错
+
+            doAysnThing('b',function(err){
+                if(err){
+                    ep.emit('error', err);
+                }else{
+                    ep.emit('a', 'data a!');
+                }
+            });
+
+            ep.fail(function(err){
+                console.info('catched error: %s',err);
+            });
+        }, 100);
+
+
+        function doAysnThing(thingName, callback, isThrow){
+            isThrow = isThrow || false;
+            console.log('start doning %s', thingName);
+            setTimeout(function(){
+                var error = false;
+                try{
+                    if(isThrow){
+                        throw 'error happen in ' + thingName;
+                    }
+                } catch(err){
+                    error = err;
+                }
+                if(!error){
+                    console.log('%s is done', thingName);
+                }
+                if(callback){
+                    callback(error);
+                }
+            }, 10);
+        }
+    })
+    </script>
+</body>
+
+</html>
