@@ -166,7 +166,7 @@
     }];
     //创建marker
 
-    function addMarker(yaocha,orderNum) {
+    function addMarker(yaocha) {
         //map.clearOverlays();
         $.each(yaocha, function(a, b) {
             for (var i = 0; i < markerArr.length; i++) {
@@ -300,7 +300,7 @@
         }
         //var orderNum = $(this).parent('label').index() - 1;
         //alert(orderNum);
-        addMarker(yaocha,orderNum);
+        addMarker(yaocha);
     })
     </script>
 </body>
