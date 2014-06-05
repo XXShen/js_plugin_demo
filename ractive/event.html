@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件操作</title>
+    <script src="../vendor/application.js"></script>
+	<script src="../vendor/ractive/ractive.js"></script>
+</head>
+<body>
+<div id='container'></div>
+<script id='template' type='text/ractive'>
+    <a on-click='onClick' on-mouseover="onMouseover" on-mouseout="onMouseout" href='javascript:void(0);'>
+        {{#isActive}}
+            {{activeWorld}}
+        {{/isActive}}
+        {{^isActive}}
+            {{disableWorld}}
+        {{/isActive}}
+    </a>
+    <button on-click='changeStatus' href='javascript:void(0);'>改变状态</button>
+    <input type="text" on-change='onChange'/>
+</script>
+  <script>
+    $(document).ready(function() {
+        var demo = new Ractive({
+            el: '#container', //输出元素选择器
+            template: '#template', //模板选择器
+            data: {
+                isActive:true,
+                activeWorld:'点我，摸我，各种调戏我吧~',
+                disableWorld:'走开,别碰我!!!',
+            }
+        });
+        function onClick(){
+            console.log('click:呵呵~');
+        }
+        demo.on('onClick',onClick);
+        demo.on('onMouseover', function(){
+            console.log('mouseover:好痒~');
+        });
+        demo.on('onMouseout', function(){
+            console.log('mouseout:别走~');
+        });
+        /*
+        evt obj
+        node - the relevant element
+        original - the underlying DOM event (useful for event.original.preventDefault() etc)
+        keypath - the keypath of the current context
+        context - the value of ractive.get(event.keypath)
+        index - a map of index references
+
+        */
+        demo.on('onChange', function(evt){
+            console.log('changed~', evt.node.value);
+        });
+
+
+
+
+        demo.on('changeStatus',function(){
+            var status = !this.get('isActive');
+            this.set('isActive', status);
+            if(status){
+                this.on('onClick',onClick);
+            }else{
+                this.off('onClick',onClick);//解除绑定
+            }
+        });
+
+        var observer = demo.observe( 'isActive', function ( newValue, oldValue, keypath ) {
+          console.log('attr %s changed from %s to %s', keypath, oldValue,newValue );
+        });
+        // observer.cancel();//停止监听
+    });
+    </script>
+</body>
+</html>

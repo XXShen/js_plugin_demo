@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Socket.IO chat</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font: 13px Helvetica, Arial;
+    }
+    form {
+        background: #000;
+        padding: 3px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+    form input {
+        border: 0;
+        padding: 10px;
+        width: 90%;
+        margin-right: .5%;
+    }
+    form button {
+        width: 9%;
+        background: rgb(130, 224, 255);
+        border: none;
+        padding: 10px;
+    }
+    #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    #messages li {
+        padding: 5px 10px;
+    }
+    #messages li:nth-child(odd) {
+        background: #eee;
+    }
+    </style>
+</head>
+
+<body>
+
+    <ul id="messages"></ul>
+    <form action="">
+        <input id="m" autocomplete="off" />
+        <button id="send-btn">Send</button>
+    </form>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+    $(document).ready(function() {
+        var userName;
+        var userNameValid = false;
+        var socket = io();
+        $('#send-btn').bind('click', function(evt) {
+            if (!userNameValid) {
+                inputUserName();
+                return false;
+            } else {
+                $('#send-btn').off('click');
+            }
+        });
+
+        $('form').submit(function() {
+            socket.emit('chat message', {
+                userName: userName,
+                msg: $('#m').val()
+            });
+            $('#m').val('');
+            return false;
+        });
+        // 消息信息
+        socket.on('chat message', function(msg) {
+            var isSelfMsg = msg.userName === userName ? true : false;
+            var align = msg.userName === userName ? 'right' : 'left';
+            var output = '';
+            if (!isSelfMsg) {
+                output += (msg.userName + ' : ');
+            }
+            output += msg.msg;
+            outputMsg(output, align);
+        });
+        // 用户名返回
+        socket.on('user name confirm', function(msg) {
+            if (userName === msg.userName) {
+                if (msg.success) {
+                    userName = msg.userName;
+                    userNameValid = true;
+                    socket.off('user name confirm');
+                } else {
+                    alser('用户已存在，请换个用户名');
+                    inputUserName();
+                }
+            }
+        });
+        // 新用户加入
+        socket.on('new user', function(msg) {
+            outputMsg('欢迎新成员' + msg);
+        });
+
+        function inputUserName() {
+            userName = prompt('请输入用户名');
+            socket.emit('user name', userName);
+        }
+
+        var $msgWrap = $('#messages');
+
+        function outputMsg(msg, align) {
+            align = align || 'left';
+            $msgWrap.append($('<li>').text(msg).css('text-align', align));
+        }
+    });
+    </script>
+</body>
+
+</html>

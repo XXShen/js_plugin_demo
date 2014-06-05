@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>异步上传文件demo</title>
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+	<script src="/jquery.ui.widget.js"></script>
+	<script src="/jquery.fileupload.js"></script>
+</head>
+<body>
+	<input id="fileupload" type="file" name="file" />
+	<script>
+	$(function () {
+	    $('#fileupload').fileupload({
+	    	url: '/upload',
+	        dataType: 'json',
+	        done: function (e, data) {
+	        	data = data.result;
+	            if(data.success === 1){
+	            	console.log('upload success!file path:%s', data.href);
+	            } else{
+	            	console.error(data.msg);
+	            }
+	        }
+	    });
+	});
+	</script>
+</body>
+</html>
