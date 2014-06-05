@@ -41,120 +41,54 @@
     <div style="width:697px;height:550px;border:#ccc solid 1px;" id="map"></div>
 </body>
 <script type="text/javascript">
-$(document).ready(function(){
+$(document).ready(function() {
     var SuperMap = window.SuperMap;
-    var centerPoint= new BMap.Point(120.735539, 31.280427);
-    var superMap = SuperMap.create('map',centerPoint);
+    var centerPoint = new BMap.Point(120.735539, 31.280427);
+    var superMap = SuperMap.create('map', centerPoint);
 
-    superMap.addNavigationControl();// 导航控件
-    superMap.addOverviewControl();// 缩略图控件
-    superMap.addScaleControl();// 添加比例尺控件
+    superMap.addNavigationControl(); // 导航控件
+    superMap.addOverviewControl(); // 缩略图控件
+    superMap.addScaleControl(); // 添加比例尺控件
+    var iconUrl = 'http://app.baidu.com/map/images/us_mk_icon.png';
+    var icon = superMap.createIcon(iconUrl, {
+        width: 50,
+        height: 100
+    }); //自定义marker的图标
+
+    var marker = superMap.createMarker({
+        x: 120.732862, // 经度
+        y: 31.280551 // 纬度
+    });
+
+    var label = superMap.createLabel('xx家大酒店', {
+        x: 20,
+        y: -5
+    });
+
+    label.setStyle({
+        borderColor: "#808080",
+        color: "#333",
+        cursor: "pointer"
+    });
+
+    marker.setLabel(label);
+
+    // 弹出信息框
+    var infoWindow = superMap.createInfoWindow('<h3>xx家大酒店</h3><p>hoho，你尽然找到这里啦，这儿有XX的脱口秀哦</p>');
+    infoWindow.addEventListener('open', function() {
+        marker.getLabel().hide();
+    });
+    infoWindow.addEventListener('close', function() {
+        marker.getLabel().show();
+    });
+
+    marker.addEventListener('click', function() {
+        this.openInfoWindow(infoWindow);
+    });
+
+
+    superMap.getMap().addOverlay(marker);
 });
-
-
-
-
-
-
-
-
-
-// //标注点数组
-// var markerArr = [{
-//     title: "独墅湖1号酒店",
-//     content: "xx路xx号xx栋",
-//     point: "120.732862|31.280551",
-//     isOpen: 1,
-//     icon: {
-//         w: 21,
-//         h: 21,
-//         l: 0,
-//         t: 0,
-//         x: 6,
-//         lb: 5
-//     }
-// }, {
-//     title: "xx酒店",
-//     content: "我家",
-//     point: "120.739822|31.289541",
-//     isOpen: 2,
-//     icon: {
-//         w: 21,
-//         h: 21,
-//         l: 0,
-//         t: 0,
-//         x: 6,
-//         lb: 5
-//     }
-// }];
-// //创建marker
-
-// function addMarker() {
-//     for (var i = 0; i < markerArr.length; i++) {
-//         var json = markerArr[i];
-//         var p0 = json.point.split("|")[0];
-//         var p1 = json.point.split("|")[1];
-//         var point = new BMap.Point(p0, p1);
-//         var iconImg = createIcon(json.icon);
-//         var marker = new BMap.Marker(point, {
-//             icon: iconImg
-//         });
-//         var iw = createInfoWindow(i);
-//         var label = new BMap.Label(json.title, {
-//             "offset": new BMap.Size(json.icon.lb - json.icon.x + 10, -20)
-//         });
-//         marker.setLabel(label);
-//         map.addOverlay(marker);
-//         label.setStyle({
-//             borderColor: "#808080",
-//             color: "#333",
-//             cursor: "pointer"
-//         });
-
-//         (function() {
-//             var index = i;
-//             var _iw = createInfoWindow(i);
-//             var _marker = marker;
-//             _marker.addEventListener("click", function() {
-//                 this.openInfoWindow(_iw);
-//             });
-//             _iw.addEventListener("open", function() {
-//                 _marker.getLabel().hide();
-//             })
-//             _iw.addEventListener("close", function() {
-//                 _marker.getLabel().show();
-//             })
-//             label.addEventListener("click", function() {
-//                 _marker.openInfoWindow(_iw);
-//             })
-
-//             if ( !! json.isOpen) {
-//                 label.hide();
-//                 _marker.openInfoWindow(_iw);
-//             }
-
-
-//         })()
-//     }
-// }
-// //创建InfoWindow
-
-// function createInfoWindow(i) {
-//     var json = markerArr[i];
-//     var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>" + json.content + "</div>");
-//     return iw;
-// }
-// //创建一个Icon
-
-// function createIcon(json) {
-//     var icon = new BMap.Icon("http://app.baidu.com/map/images/us_mk_icon.png", new BMap.Size(json.w, json.h), {
-//         imageOffset: new BMap.Size(-json.l, -json.t),
-//         infoWindowOffset: new BMap.Size(json.lb + 5, 1),
-//         offset: new BMap.Size(json.x, json.h)
-//     })
-//     return icon;
-// }
-
 </script>
 
 </html>

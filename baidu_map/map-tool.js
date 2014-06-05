@@ -47,6 +47,40 @@
         this.map.addControl(ctrl_sca);
     };
 
+    SuperMap.prototype.createLabel = function(text, offset){
+    	if(!text){
+    		throw 'text needed';
+    	}
+    	if(!offset){
+    		throw 'offset needed';
+    	}
+    	return new BMap.Label(text, {
+    		offset: new BMap.Size(offset.x, offset.y)
+    	});
+    };
+
+	//钉在地图上的那个东西
+    SuperMap.prototype.createMarker = function(point, icon){
+    	if(!point){
+    		throw 'point needed';
+    	}
+    	var baiduPoint = new BMap.Point(point.x, point.y);
+    	var marker = new BMap.Marker(baiduPoint, icon && {
+            icon: icon
+        });
+    	return marker;
+    };
+
+	SuperMap.prototype.createIcon = function(url, size, offset) {
+	    var icon = new BMap.Icon(url, new BMap.Size(size.width, size.height));
+	    return icon;
+	};
+
+	SuperMap.prototype.createInfoWindow = function(text) {
+		var infoWindow = new BMap.InfoWindow(text);
+		return infoWindow;
+	};
+
     SuperMap.create = function(id, centerPoint, opt) {
         opt = $.extend({}, defaultOpt, opt);
         if (!SuperMap.valid(id, centerPoint, opt)) {
