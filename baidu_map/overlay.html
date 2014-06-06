@@ -24,11 +24,11 @@ $(document).ready(function() {
     var centerPoint = new BMap.Point(120.735539, 31.280427);
     var superMap = SuperMap.create('map', centerPoint);
     // 添加覆盖物 http://developer.baidu.com/map/jsdevelop-4.htm
-    var marker = superMap.createMarker({
+    var marker = SuperMap.createMarker({
         x: 120.732862, // 经度
         y: 31.280551 // 纬度
     });
-    var label = superMap.createLabel('这个是个label', {
+    var label = SuperMap.createLabel('这个是个label', {
         x: 20,
         y: -5
     });

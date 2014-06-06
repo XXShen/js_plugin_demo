@@ -28,17 +28,17 @@ $(document).ready(function() {
     superMap.addOverviewControl(); // 缩略图控件
     superMap.addScaleControl(); // 添加比例尺控件
     var iconUrl = 'http://app.baidu.com/map/images/us_mk_icon.png';
-    var icon = superMap.createIcon(iconUrl, {
+    var icon = SuperMap.createIcon(iconUrl, {
         width: 50,
         height: 100
     }); //自定义marker的图标
 
-    var marker = superMap.createMarker({
+    var marker = SuperMap.createMarker({
         x: 120.732862, // 经度
         y: 31.280551 // 纬度
     });
 
-    var label = superMap.createLabel('xx家大酒店', {
+    var label = SuperMap.createLabel('xx家大酒店', {
         x: 20,
         y: -5
     });
@@ -52,7 +52,7 @@ $(document).ready(function() {
     marker.setLabel(label);
 
     // 弹出信息框
-    var infoWindow = superMap.createInfoWindow('<h3>xx家大酒店</h3><p>hoho，你尽然找到这里啦，这儿有XX的脱口秀哦</p>');
+    var infoWindow = SuperMap.createInfoWindow('<h3>xx家大酒店</h3><p>hoho，你尽然找到这里啦，这儿有XX的脱口秀哦</p>');
     infoWindow.addEventListener('open', function() {
         marker.getLabel().hide();
     });
