@@ -81,13 +81,14 @@
         if(!point){
             throw 'point needed';
         }
-        var baiduPoint = new BMap.Point(point.x, point.y);
+        var baiduPoint = new BMap.Point(point.lng, point.lat);
         var marker = new BMap.Marker(baiduPoint, icon && {
             icon: icon
         });
         return marker;
     };
 
+    // http://developer.baidu.com/map/reference/index.php?title=Class:%E8%A6%86%E7%9B%96%E7%89%A9%E7%B1%BB/Icon
     SuperMap.createIcon = function(url, size, offset) {
         var icon = new BMap.Icon(url, new BMap.Size(size.width, size.height));
         return icon;

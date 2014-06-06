@@ -25,22 +25,39 @@ $(document).ready(function() {
     var superMap = SuperMap.create('map', centerPoint);
     // 添加覆盖物 http://developer.baidu.com/map/jsdevelop-4.htm
     var marker = SuperMap.createMarker({
-        x: 120.732862, // 经度
-        y: 31.280551 // 纬度
+        lng: 120.732862, // 经度
+        lat: 31.280551 // 纬度
     });
     var label = SuperMap.createLabel('这个是个label', {
         x: 20,
         y: -5
     });
-    label.setStyle({// 自定义label的样式
+    label.setStyle({ // 自定义label的样式
         borderColor: "#808080",
         color: "#333",
         cursor: "pointer"
     });
-    marker.setLabel(label);//设置label
+    marker.setLabel(label); //设置label
     superMap.getMap().addOverlay(marker);
 
-    // todo 还缺一个自定义图标的marker
+    // 自定义图标的marker
+    var icon = SuperMap.createIcon('./img/chat-icon.png', {
+        width: 40,
+        height: 40
+    });
+    var marker2 = SuperMap.createMarker({
+        lng: 120.73, // 经度
+        lat: 31.278 // 纬度
+    }, icon);
+
+    label = SuperMap.createLabel('这个是个自定义icon的marker', {
+        x: 20,
+        y: -5
+    });
+    marker2.setLabel(label); //设置label
+
+
+    superMap.getMap().addOverlay(marker2);
 
 });
 </script>
