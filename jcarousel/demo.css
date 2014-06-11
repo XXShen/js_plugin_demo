@@ -1,0 +1,40 @@
+.table-carousel-wrap{
+    width: 600px;
+    margin: 0 auto;
+}
+.table-carousel-wrap .carousel {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+}
+
+.table-carousel-wrap .carousel ul {
+    height: 20000em;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.table-carousel-wrap .carousel li {
+    float: left;
+    width: 600px;
+    height: 400px;
+    text-align: center;
+}
+
+.table-content-nav ul{
+    list-style: none;
+}
+
+.table-content-nav a{
+    display: block;
+    margin: 10px;
+    width: 100px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    background: #ff0;
+    color: #333;
+}
+

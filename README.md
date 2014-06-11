@@ -17,6 +17,7 @@ ps： Core admin是非免费的，18$，购买点[这里](https://wrapbootstrap.
 * [jQuery-File-Upload](https://github.com/XXShen/js_plugin_demo/tree/master/fileUpload) 上传文件组件
 * [sock.io](https://github.com/XXShen/js_plugin_demo/tree/master/webSocket) 实时应用框架
 * [eventproxy](http://xxshen.github.io/js_plugin_demo/eventProxy/demo.html) 异步流程管理
+* [jcarousel](http://xxshen.github.io/js_plugin_demo/jcarousel/demo.html) 异步流程管理
 
 
 [![Analytics](https://ga-beacon.appspot.com/UA-51368834-1/js_plugin_demo/readme)](https://github.com/igrigorik/ga-beacon)
