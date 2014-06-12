@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>移动桌子</title>
+    <title>改变桌子大小</title>
 
     <link rel="stylesheet" href="../vendor/application.css">
+    <link rel="stylesheet" href="../vendor/jqueryUI/jquery.ui.core.css">
+    <link rel="stylesheet" href="../vendor/jqueryUI/jquery.ui.resizable.css">
 
     <style>
     .table-wrap{
@@ -55,7 +57,9 @@
     <script src="../vendor/jqueryUI/jquery-ui-1.10.4.custom.js"></script>
     <script>
     $(document).ready(function() {
-        $(".table-wrap ul").sortable().disableSelection();
+        $(".table-wrap .table").resizable({
+            grid: 70
+        }).disableSelection();
     });
     </script>
 </body>
