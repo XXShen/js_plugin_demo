@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择桌子</title>
+
+    <link rel="stylesheet" href="../vendor/application.css">
+    <link rel="stylesheet" href="../vendor/jqueryUI/jquery.ui.core.css">
+    <link rel="stylesheet" href="../vendor/jqueryUI/jquery.ui.resizable.css">
+
+    <style>
+    .table-wrap{
+        margin-left: 100px;
+        width: 290px;
+        height: 200px;
+        background: #faa523;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+    .table-wrap ul{
+        list-style: none;
+    }
+    .table-wrap li{
+        float: left;
+        width: 60px;
+        height: 60px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        background: #fff;
+        text-align: center;
+    }
+    .table-wrap .large-table{
+        width:130px;
+    }
+    </style>
+</head>
+
+<body>
+    <h1>选择桌子</h1>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="table-wrap clearfix">
+                <ul class="clearfix">
+                    <li class="table">1号桌</li>
+                    <li class="table large-table">2号桌</li>
+                    <li class="table">3号桌</li>
+                    <li class="table">4号桌</li>
+                    <li class="table">5号桌</li>
+                    <li class="table">6号桌</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <p>sortable有个缺点，就是不支持中间空着。。。</p>
+
+    <script src="../vendor/jquery-1.10.2.js"></script>
+    <script src="../vendor/jqueryUI/jquery-ui-1.10.4.custom.js"></script>
+    <script>
+    $(document).ready(function() {
+        $(".table-wrap ul").sortable().disableSelection();
+        $(".table-wrap .table").resizable({
+            grid: 70
+        });
+    });
+    </script>
+</body>
+
+</html>
