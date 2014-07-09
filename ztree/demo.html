@@ -115,6 +115,7 @@
             if (!treeNode.isParent) {
                 console.log('发送请求:%s', treeNode.requestUrl);
             }
+            // 可以直接用 treeNode.属性 来拿对象上的其他的一些属性
         }
         var zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, nodes);
     });
