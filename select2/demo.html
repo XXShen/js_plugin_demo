@@ -84,6 +84,38 @@
     })
     </script>
 
+    <h2>有auto complete功能的</h2>
+    <input type="text" id="auto-complete">
+    <script>
+    $(document).ready(function() {
+        $('#auto-complete').select2({
+            data: [{
+                id: 'apple',
+                text: '苹果'
+            },{
+                id: 'pear',
+                text: '梨子'
+            }],
+            // 找不到匹配时，创建一条新的
+            createSearchChoice: function(term) {
+                return {
+                    id: -1,
+                    text: term
+                }
+            }
+        });
+
+        $('#auto-complete').change(function() {
+            var value = this.value;
+            if (this.value === '-1') {
+                // 其id为 s2_ +input id
+                value = $('#s2id_auto-complete').find('span').text()
+            }
+            console.log('value:%s',value);
+        });
+    });
+    </script>
+
     <h2>坑</h2>
     <p>
         初始化select2时，如果那select是隐藏的有时会有问题。。。
@@ -91,7 +123,7 @@
     <button id="show-sel">
         显示select2</button>
     <div style="margin-left:100px;display:none;" id="hidden-sel-wrap">
-        <select name="" id="hidden-sel" multiple >
+        <select name="" id="hidden-sel" multiple>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
