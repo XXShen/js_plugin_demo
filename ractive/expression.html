@@ -32,7 +32,13 @@
     <p>第二个月跑了{{car.runs[1]}}公里</p>
     <h2>注释</h2>
     <p>...有问题，mustache是以!开头 {{!ignore}}</p>
+
+    <h2>方法</h2>
+    <div><label>输入（输出比输入大一）</label><input type="text" value="{{input}}"></div>
+<div><label>输出</label>{{output()}}  fail</div>
+<div><label>输出</label>{{output2}} ok</div>
 </script>
+
   <script>
     $(document).ready(function() {
         var expression = new Ractive({
@@ -46,8 +52,17 @@
                         name : 'joel'
                     },
                     runs : [1000,2000,5000]
+                },
+                input: 0,
+                output2: 1,
+                output: function(){
+                    return expression ? expression.get('input') + 1 : 1;
                 }
             }
+        });
+        expression.observe('input', function(newVal){
+            console.log(newVal);
+            expression.set('output2', newVal + 1);
         });
     });
     </script>
