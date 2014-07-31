@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>选择桌子</title>
@@ -9,7 +10,10 @@
     <link rel="stylesheet" href="../vendor/jqueryUI/jquery.ui.resizable.css">
 
     <style>
-    .table-wrap{
+    body {
+        background: none;
+    }
+    .table-wrap {
         margin-left: 100px;
         width: 290px;
         height: 200px;
@@ -17,10 +21,10 @@
         padding-left: 10px;
         padding-top: 10px;
     }
-    .table-wrap ul{
+    .table-wrap ul {
         list-style: none;
     }
-    .table-wrap li{
+    .table-wrap li {
         float: left;
         width: 60px;
         height: 60px;
@@ -30,8 +34,49 @@
         background: #fff;
         text-align: center;
     }
-    .table-wrap .large-table{
-        width:130px;
+    .table-wrap .large-table {
+        width: 130px;
+    }
+    .material-wrap {
+        margin-bottom: 10px;
+        list-style-type: none;
+    }
+    .material-wrap .material {
+        float: left;
+        width: 45px;
+        height: 45px;
+        line-height: 45px;
+        margin-right: 10px;
+        background: #ff0;
+        text-align: center;
+    }
+    .floor-wrap {
+        width: 1200px;
+        margin: 0 auto;
+    }
+    .floor {
+        height: 1200px;
+        background: #eee;
+        border: 1px dotted #0ff;
+        list-style: none;
+    }
+    .floor.active {
+        background: #00f;
+    }
+    .floor .material {
+        width: 45px;
+        height: 45px;
+        line-height: 45px;
+        background: #ff0;
+        text-align: center;
+    }
+    .floor .wrap-material {
+        background: #0f0;
+    }
+    .floor .wrap-material,
+    .ui-draggable-dragging.wrap-material {
+        width: 225px;
+        height: 225px;
     }
     </style>
 </head>
@@ -54,6 +99,26 @@
     </div>
     <p>sortable有个缺点，就是不支持中间空着。。。</p>
 
+    将下面的物件拖入虚线区域
+    <ul class="material-wrap clearfix">
+        <li class="material" data-id="four-table"><a href="javascript:void(0);">四人桌</a>
+        </li>
+        <li class="material" data-id="six-table"><a href="javascript:void(0);">六人桌</a>
+        </li>
+        <li class="material" data-id="door"><a href="javascript:void(0);">门</a>
+        </li>
+        <li class="material" data-id="window"><a href="javascript:void(0);">窗</a>
+        </li>
+        <li class="material wrap-material" data-id="room"><a href="javascript:void(0);">包厢</a>
+        </li>
+    </ul>
+    <div class="floor-wrap">
+        <ul class="floor">
+
+        </ul>
+    </div>
+
+
     <script src="../vendor/jquery-1.10.2.js"></script>
     <script src="../vendor/jqueryUI/jquery-ui-1.10.4.custom.js"></script>
     <script>
@@ -62,6 +127,115 @@
         $(".table-wrap .table").resizable({
             grid: 70
         });
+
+        // 栅格：60 * 60，桌子，窗，门都是 45* 45，包厢 225*225 即有15px的槽
+        // var draggableOpt = {
+        //     revert: 'invalid',
+        //     helper: "clone",
+        //     scope: "meterial",
+        //     stop: function() {}
+        // };
+
+        var GRID = 60;
+
+        $(".material-wrap .material").draggable({
+            revert: 'invalid',
+            helper: "clone",
+            scope: "meterial",
+            stop: function() {}
+        }).disableSelection();
+
+        // todo 包厢里的东西拖着走，包厢与其包含的桌子在数据上也是有层次的
+        // 包厢，桌子都是可以命名的
+        // 物件上都有删除按钮
+        var floorBox = {
+            $el: $(".floor"),
+            init: function(grid) {
+                var self = this;
+                grid = grid || 60;
+                this.grid = grid;
+                this.offset = this.$el.offset();
+                this.$el.droppable({
+                    scope: "meterial",
+                    tolerance: "fit", // 完全进入
+                    drop: function(event, ui) {
+                        if (ui.draggable.parent('.material-wrap').length > 0) {
+
+                            var $meterial = ui.helper.clone();
+                            var fixedPos = self.getSnap(ui.position); //贴近网格
+                            $(this).append($meterial);
+                            $meterial.offset(fixedPos).draggable({
+                                containment: "parent",
+                                scope: "meterial",
+                                helper: false,
+                                // grid: [grid, grid],// 用网格移不到第一格
+                                stop: function() {
+                                    var offset = $(this).offset();
+                                    $(this).offset(self.getSnap(offset));
+                                    console.log(JSON.stringify(self.getSelectedMaterials()));
+                                }
+                            }).disableSelection();
+                            if ($meterial.hasClass('wrap-material')) {
+                                $meterial.resizable({
+                                    grid: grid
+                                });
+                                $meterial.droppable({
+                                    scope: "meterial",
+                                    tolerance: "fit"
+                                });
+                            }
+                        }
+                    },
+                    hoverClass: 'active'
+                });
+            },
+            getSnap: function(offset) { //让物件的位置贴着网格,往左上方向靠
+                var grid = this.grid;
+                var parentOffset = this.offset;
+                var reOffset = {
+                    left: offset.left - parentOffset.left,
+                    top: offset.top - parentOffset.top
+                };
+                reOffset.left = Math.floor(reOffset.left / grid) * grid;
+                reOffset.top = Math.floor(reOffset.top / grid) * grid;
+
+                offset.left = reOffset.left + parentOffset.left;
+                offset.top = reOffset.top + parentOffset.top;
+                return offset;
+
+            },
+            getSelectedMaterials: function() {
+                var self = this;
+                var res = [];
+                var $allMaterials = this.$el.find('.material');
+                $allMaterials.each(function() {
+                    var $this = $(this);
+                    var info = {};
+                    info.id = $this.data('id');
+                    info.pos = self.getMaterialPos($this.offset());
+                    res.push(info);
+                });
+                return res;
+            },
+            getMaterialPos: function(offset) {
+                var grid = this.grid;
+                var parentOffset = this.offset;
+                var reOffset = {
+                    left: offset.left - parentOffset.left,
+                    top: offset.top - parentOffset.top
+                };
+                var pos = {
+                    column: reOffset.left / grid + 1,
+                    row: reOffset.top / grid + 1,
+                }
+                return pos;
+            }
+        };
+
+
+        floorBox.init();
+
+
     });
     </script>
 </body>
