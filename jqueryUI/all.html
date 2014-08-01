@@ -43,12 +43,13 @@
     }
     .material-wrap .material {
         float: left;
-        width: 45px;
-        height: 45px;
-        line-height: 45px;
+        width: 75px;
+        height: 75px;
+        line-height: 75px;
         margin-right: 10px;
         background: #ff0;
         text-align: center;
+        z-index: 10000;
     }
     .floor-wrap {
         width: 1200px;
@@ -64,14 +65,30 @@
         background: #00f;
     }
     .floor .material {
-        width: 45px;
-        height: 45px;
-        line-height: 45px;
+        width: 75px;
+        height: 75px;
+        line-height: 75px;
         background: #ff0;
         text-align: center;
     }
     .floor .wrap-material {
         background: #0f0;
+    }
+    .floor .material .remove-btn {
+        position: absolute;
+        height: 10px;
+        line-height: 10px;
+        top: 2px;
+        right: 2px;
+    }
+    .floor .material input {
+        display: none;
+    }
+    .floor .material.editing input {
+        display: inline;
+    }
+    .floor .material.editing .name {
+        display: none;
     }
     .floor .wrap-material,
     .ui-draggable-dragging.wrap-material {
@@ -101,15 +118,15 @@
 
     将下面的物件拖入虚线区域
     <ul class="material-wrap clearfix">
-        <li class="material" data-id="four-table"><a href="javascript:void(0);">四人桌</a>
+        <li class="material" data-id="four-table" data-from="outer"><a href="javascript:void(0);" class="name">四人桌</a>
         </li>
-        <li class="material" data-id="six-table"><a href="javascript:void(0);">六人桌</a>
+        <li class="material" data-id="six-table" data-from="outer"><a href="javascript:void(0);" class="name">六人桌</a>
         </li>
-        <li class="material" data-id="door"><a href="javascript:void(0);">门</a>
+        <li class="material" data-id="door" data-from="outer"><a href="javascript:void(0);" class="name">门</a>
         </li>
-        <li class="material" data-id="window"><a href="javascript:void(0);">窗</a>
+        <li class="material" data-id="window" data-from="outer"><a href="javascript:void(0);" class="name">窗</a>
         </li>
-        <li class="material wrap-material" data-id="room"><a href="javascript:void(0);">包厢</a>
+        <li class="material wrap-material" data-id="room" data-from="outer"><a href="javascript:void(0);" class="name">包厢</a>
         </li>
     </ul>
     <div class="floor-wrap">
@@ -136,7 +153,7 @@
         //     stop: function() {}
         // };
 
-        var GRID = 60;
+        var GRID = 80;
 
         $(".material-wrap .material").draggable({
             revert: 'invalid',
@@ -146,47 +163,165 @@
         }).disableSelection();
 
         // todo 包厢里的东西拖着走，包厢与其包含的桌子在数据上也是有层次的
-        // 包厢，桌子都是可以命名的
-        // 物件上都有删除按钮
+        // 直接拖入包厢的问题
         var floorBox = {
             $el: $(".floor"),
             init: function(grid) {
                 var self = this;
-                grid = grid || 60;
+                grid = grid || 80;
                 this.grid = grid;
                 this.offset = this.$el.offset();
+                this.zIndex = 1;
+                this.registerEvent();
                 this.$el.droppable({
                     scope: "meterial",
                     tolerance: "fit", // 完全进入
+                    stack: ".floor .material",
                     drop: function(event, ui) {
-                        if (ui.draggable.parent('.material-wrap').length > 0) {
+                        var $draggable = ui.draggable;
+                        var dragFrom = self.getDragFrom($draggable);
+                        // if (dragFrom === 'inner' || (dragFrom === 'wrap-inner' && self.acceptable === true)) {
+                        if (dragFrom === 'inner' ||  self.acceptable === true) {
+                            console.log('ok');
+                            return;
+                        }
+                        var $meterial = ui.helper.clone();
+                        console.log('落在外面' + Math.random());
 
-                            var $meterial = ui.helper.clone();
-                            var fixedPos = self.getSnap(ui.position); //贴近网格
-                            $(this).append($meterial);
-                            $meterial.offset(fixedPos).draggable({
-                                containment: "parent",
+                        $meterial.attr('data-from', 'inner');
+                        $(this).append($meterial);
+                        if (dragFrom === 'wrap-inner') {
+                            var $wrapOffset = $draggable.closest('.wrap-material').offset();
+                            $meterial.offset({
+                                left: $meterial.offset().left + 　$wrapOffset.left,
+                                top: $meterial.offset().top + 　$wrapOffset.top,
+                            });
+                            $draggable.remove();
+                        }
+                        self.initMeterial($meterial);
+                        self.decorate($meterial);
+
+                        if ($meterial.hasClass('wrap-material')) {
+                            $meterial.resizable({
+                                grid: grid
+                            });
+                            $meterial.droppable({
                                 scope: "meterial",
-                                helper: false,
-                                // grid: [grid, grid],// 用网格移不到第一格
-                                stop: function() {
-                                    var offset = $(this).offset();
-                                    $(this).offset(self.getSnap(offset));
-                                    console.log(JSON.stringify(self.getSelectedMaterials()));
+                                tolerance: "fit",
+                                hoverClass: 'active',
+                                greedy: true,
+                                stack: ".floor .wrap-material .material",
+                                accept: function($elem) {
+                                    // 包厢不能嵌套包含包厢
+                                    var acceptable = !$elem.hasClass('wrap-material');
+                                    console.log('acceptable: %s', acceptable);
+                                    self.acceptable = true;
+                                    return acceptable;
+                                },
+                                drop: function(event, ui) {
+                                    self.acceptable = false;
+                                    var $draggable = ui.draggable;
+                                    var $meterial;
+                                    var dragFrom = self.getDragFrom($draggable);
+                                    console.log('落在里面' + Math.random());
+                                    var $this;
+                                    $this = $(this);
+                                    $meterial = ui.helper.clone();
+                                    $meterial.attr('data-from', 'wrap-inner');
+                                    var $prevWrap = $draggable.closest('.wrap-material');
+                                    $(this).append($meterial);
+                                    // if (dragFrom === 'wrap-inner' && $draggable){
+
+                                    // }
+                                    console.log(dragFrom);
+                                    if (dragFrom === 'inner' || dragFrom === 'outer' ) {
+                                        $meterial.css('left', $meterial.position().left - $this.position().left);
+                                        $meterial.css('top', $meterial.position().top - $this.position().top);
+                                    } else if (dragFrom === 'wrap-inner') {
+                                        if ($draggable.parent('.wrap-material')[0] === this) {
+                                            // console.log('in to in');
+                                            // console.log($draggable.position());
+                                        } else {
+                                            var left = $prevWrap.offset().left + $meterial.position().left - $this.offset().left;
+                                            var top = $prevWrap.offset().top + $meterial.position().top - $this.offset().top;
+                                            $meterial.css('left', left);
+                                            $meterial.css('top', top);
+                                        }
+                                    }
+                                    if (dragFrom === 'outer') {
+                                        self.decorate($meterial);
+                                    } else {
+                                        $draggable.remove();
+                                    }
+                                    self.initMeterial($meterial);
                                 }
-                            }).disableSelection();
-                            if ($meterial.hasClass('wrap-material')) {
-                                $meterial.resizable({
-                                    grid: grid
-                                });
-                                $meterial.droppable({
-                                    scope: "meterial",
-                                    tolerance: "fit"
-                                });
-                            }
+                            });
                         }
                     },
                     hoverClass: 'active'
+                });
+            },
+            endEdit: function(ctx) {
+                var $this = $(ctx);
+                var $material = $this.closest('.material');
+                $material.find('.name').text($this.val());
+                $material.removeClass('editing');
+            },
+            getDragFrom: function($draggable) {
+                // outer: 外部 inner:内部 wrap-inner:包厢内
+                // console.log($draggable.data('from'));
+                return $draggable.attr('data-from');
+            },
+            initMeterial: function($meterial) {
+                var self = this;
+                position = $meterial.offset();
+                var fixedPos = this.getSnap(position); //贴近网格
+                $meterial.offset(fixedPos).draggable({
+                    containment: '.floor',
+                    scope: "meterial",
+                    helper: false,
+                    // grid: [grid, grid],// 用网格移不到第一格
+                    start: function(){
+                        $(this).css('z-index', self.zIndex++);
+                    },
+                    stop: function() {
+                        var offset = $(this).offset();
+                        $(this).offset(self.getSnap(offset));
+                    }
+                }).disableSelection();
+            },
+            decorate: function($meterial) {
+                var self = this;
+                var $removeBtn = $('<a>').addClass('remove-btn').html('&times;').attr('href', 'javascript:void(0);');
+                var $editInput = $('<input>').attr('type', 'text').val($meterial.find('a').text());
+                $meterial.append($removeBtn);
+                $meterial.append($editInput);
+
+                $editInput.blur(function() {
+                    self.endEdit(this);
+
+                });
+
+                $editInput.keyup(function(evt) {
+                    if (evt.keyCode == 13) {
+                        self.endEdit(this);
+                    }
+                });
+            },
+            registerEvent: function() {
+                // 删除
+                this.$el.on('click', '.material .remove-btn', function(evt) {
+                    $(evt.currentTarget).closest('.material').remove();
+                });
+
+                // 重命名
+                this.$el.on('dblclick', '.material a', function(evt) {
+                    var $this = $(evt.currentTarget);
+                    var $parent = $this.closest('.material');
+                    var $input = $parent.find(':text');
+                    $parent.addClass('editing');
+                    $input.focus();
+                    cursorMoveToEnd($input);
                 });
             },
             getSnap: function(offset) { //让物件的位置贴着网格,往左上方向靠
@@ -213,6 +348,7 @@
                     var info = {};
                     info.id = $this.data('id');
                     info.pos = self.getMaterialPos($this.offset());
+                    info.name = $this.find('.name').text();
                     res.push(info);
                 });
                 return res;
@@ -232,6 +368,25 @@
             }
         };
 
+        function cursorMoveToEnd($input) {
+            var length = $input.val().length;
+            moveCursor($input[0], length, length);
+        }
+
+        function moveCursor(input, start, end) {
+            start = parseInt(start, 10);
+            end = parseInt(end, 10);
+            if (input.setSelectionRange) {
+                input.focus();
+                input.setSelectionRange(start, end);
+            } else if (input.createTextRange) { // IE
+                var range = input.createTextRange();
+                range.collapse(true);
+                range.moveEnd('character', end);
+                range.moveStart('character', start);
+                range.inputect();
+            }
+        }
 
         floorBox.init();
 
