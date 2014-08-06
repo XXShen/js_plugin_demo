@@ -6,9 +6,10 @@
     <title>date</title>
     <link rel="stylesheet" href="../vendor/datetimepicker/bootstrap-datetimepicker.css">
     <link rel="stylesheet" href="../vendor/application.css">
-    <script src="../vendor/application.js"></script>
     <link rel="stylesheet" href="../vendor/prettify/prettify.css">
     <script src="../vendor/prettify/prettify.js"></script>
+    <script src="../vendor/application.js"></script>
+    <script src="../vendor/datetimepicker/bootstrap-datetimepicker.min.js"></script>
     <style>
     pre {
         width: 800px;
@@ -100,7 +101,9 @@
             autoclose: true,
             todayBtn: true,
             pickerPosition: "bottom-left",
-            language: 'fr'
+            language: 'fr',
+            startView: 2, // 选日
+            minView: 2
         });
         $(document).ready(function(argument) {
             prettyPrint(); //让代码变漂亮~

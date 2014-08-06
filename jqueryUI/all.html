@@ -214,6 +214,9 @@
                                 accept: function($elem) {
                                     // 包厢不能嵌套包含包厢
                                     var acceptable = !$elem.hasClass('wrap-material');
+                                    // 用像素来算。。。 在那范围内，就true,否则false
+                                    
+
                                     console.log('acceptable: %s', acceptable);
                                     self.acceptable = true;
                                     return acceptable;
