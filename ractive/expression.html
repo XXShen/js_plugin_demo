@@ -37,6 +37,8 @@
     <div><label>输入（输出比输入大一）</label><input type="text" value="{{input}}"></div>
 <div><label>输出</label>{{output()}}  fail</div>
 <div><label>输出</label>{{output2}} ok</div>
+<!-- 如果有函数传的是动态的参数，则方法会被动态的调用 -->
+<div><label>输出</label>{{output3(input)}} ok</div>
 </script>
 
   <script>
@@ -57,6 +59,9 @@
                 output2: 1,
                 output: function(){
                     return expression ? expression.get('input') + 1 : 1;
+                },
+                output3: function(input){
+                        return input + 1;
                 }
             }
         });
