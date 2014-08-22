@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>幻灯demo</title>
+    <link rel="stylesheet" href="../vendor/coinSlider/coin-slider-styles.css">
+    <style>
+    #slider-wrap{
+    	margin: 50px auto;
+    	width: 580px;
+    }
+    #coin-slider img{
+		height: 145px;
+		display: block;
+		overflow: hidden;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="slider-wrap">
+        <div id='coin-slider'>
+            <a href="javascript:void(0);">
+                <img src='imgs/1.jpg'>
+            </a>
+            <a href="javascript:void(0);">
+                <img src='imgs/2.jpg'>
+            </a>
+            <a href="javascript:void(0);">
+                <img src='imgs/3.jpg'>
+            </a>
+            <a href="javascript:void(0);">
+                <img src='imgs/4.jpg'>
+            </a>
+        </div>
+    </div>
+
+    <script src="http://cdn.staticfile.org/jquery/1.11.1-rc2/jquery.min.js"></script>
+    <script src="../vendor/coinSlider/coin-slider.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#coin-slider').coinslider({
+        	width: 580, // width of slider panel
+			height: 145, // height of slider panel
+        });
+    })
+    </script>
+</body>
+
+</html>
