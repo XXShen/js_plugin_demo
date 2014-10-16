@@ -18,6 +18,7 @@ ps： Core admin是非免费的，18$，购买点[这里](https://wrapbootstrap.
 * [sock.io](https://github.com/XXShen/js_plugin_demo/tree/master/webSocket) 实时应用框架
 * [eventproxy](http://xxshen.github.io/js_plugin_demo/eventProxy/demo.html) 异步流程管理
 * [jcarousel](http://xxshen.github.io/js_plugin_demo/jcarousel/demo.html) 幻灯
+* [anythingZoomer](http://xxshen.github.io/js_plugin_demo/anythingZoomer/) 放大镜功能
 
 
 [![Analytics](https://ga-beacon.appspot.com/UA-51368834-1/js_plugin_demo/readme)](https://github.com/igrigorik/ga-beacon)

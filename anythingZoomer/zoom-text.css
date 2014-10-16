@@ -1,0 +1,14 @@
+.zoom {
+    width: 960px;
+    display: block;
+    margin: 0 auto;
+    font-size: 10px;
+}
+.large {
+    background: white;
+    width: 1200px;
+}
+
+.large p {
+    font-size: 22px;
+}

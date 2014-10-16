@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Anything Zoomer | Text</title>
+
+    <!-- <link href="http://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet"> -->
+    <link rel="stylesheet" href="zoom-text.css">
+    <link rel="stylesheet" href="../vendor/anythingZoomer/anythingzoomer.css">
+
+    <script src="http://cdn.staticfile.org/jquery/1.11.1-rc2/jquery.min.js"></script>
+    <script src="../vendor/anythingZoomer/jquery.anythingzoomer.min.js"></script>
+
+</head>
+
+<body class="zoom">
+    <div class="small text">
+        <div id="main-content">
+            <h1>AnythingZoomer<sup>2</sup>
+            </h1>
+            <h2>按c键打开或关闭放大镜</h2>
+            <div class="text">
+                <div class="">
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                </div>
+
+            </div>
+            <p>dfdjfdljndfojofjdfijdfodj</p>
+
+
+        </div>
+        <!-- end zoom -->
+
+    </div>
+
+    <script>
+    $(document).ready(function() {
+        var $zoom = $('.zoom');
+        $zoom.anythingZoomer({
+            clone: true
+        }).addClass('enable');
+
+        $(document).keyup(function(evt) {
+            if (evt.which === 67) { // 'c'
+            	if($zoom.hasClass('enable')){
+            		$zoom.anythingZoomer('disable');
+            	} else {
+            		$zoom.anythingZoomer('enable');
+            	}
+        		$zoom.toggleClass('enable');
+            }
+        });
+    });
+    </script>
+
+</body>
+
+</html>
