@@ -7,8 +7,5 @@
 .large {
     background: white;
     width: 1200px;
-}
-
-.large p {
-    font-size: 22px;
+    font-size: 22px !important;
 }
